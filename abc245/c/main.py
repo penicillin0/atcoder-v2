@@ -9,16 +9,14 @@ B = list(map(int, input().split()))
 memo = [set() for _ in range(n)]
 
 for i in range(n):
-    candidate = [A[i],  B[i]]
-    for c in candidate:
+    for c in list(set([A[i], B[i]])):
         if i == 0:
-            memo[i].add((c, True))
+            memo[i].add(c)
             continue
-        for p_num, p_is in memo[i - 1]:
-            if p_is is True:
-                diff = abs(p_num - c)
-                if diff <= k:
-                    memo[i].add((c, True))
+        for p_num in memo[i - 1]:
+            diff = abs(p_num - c)
+            if diff <= k:
+                memo[i].add(c)
 
 
 if len(memo[-1]) == 0:
